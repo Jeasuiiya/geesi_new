@@ -1,0 +1,2 @@
+add_library(FDDPSPolicy fddps_algorithm.cc)
+target_link_libraries(FDDPSPolicy PUBLIC PolicyHeaders)

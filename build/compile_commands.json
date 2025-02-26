@@ -1,0 +1,128 @@
+[
+{
+  "directory": "/home/ai/ljj/tp/build",
+  "command": "/usr/bin/c++ -I/home/ai/.cache/cpm/fmt/98fbb10177bd3d9adb0f2e67d8a84a6f9ab1beca/include  -std=c++17 -Wall -Wextra -Werror -g -std=gnu++17 -fPIC -fvisibility=hidden -fvisibility-inlines-hidden -o _deps/fmt-build/CMakeFiles/fmt.dir/src/format.cc.o -c /home/ai/.cache/cpm/fmt/98fbb10177bd3d9adb0f2e67d8a84a6f9ab1beca/src/format.cc",
+  "file": "/home/ai/.cache/cpm/fmt/98fbb10177bd3d9adb0f2e67d8a84a6f9ab1beca/src/format.cc",
+  "output": "_deps/fmt-build/CMakeFiles/fmt.dir/src/format.cc.o"
+},
+{
+  "directory": "/home/ai/ljj/tp/build",
+  "command": "/usr/bin/c++ -I/home/ai/.cache/cpm/fmt/98fbb10177bd3d9adb0f2e67d8a84a6f9ab1beca/include  -std=c++17 -Wall -Wextra -Werror -g -std=gnu++17 -fPIC -fvisibility=hidden -fvisibility-inlines-hidden -o _deps/fmt-build/CMakeFiles/fmt.dir/src/os.cc.o -c /home/ai/.cache/cpm/fmt/98fbb10177bd3d9adb0f2e67d8a84a6f9ab1beca/src/os.cc",
+  "file": "/home/ai/.cache/cpm/fmt/98fbb10177bd3d9adb0f2e67d8a84a6f9ab1beca/src/os.cc",
+  "output": "_deps/fmt-build/CMakeFiles/fmt.dir/src/os.cc.o"
+},
+{
+  "directory": "/home/ai/ljj/tp/build",
+  "command": "/usr/bin/c++ -DSPDLOG_COMPILED_LIB -I/home/ai/.cache/cpm/spdlog/2dde76e860484cfa438afe512dfaea3c2067fb2a/include  -std=c++17 -Wall -Wextra -Werror -g -std=c++17 -fPIC -fvisibility=hidden -fvisibility-inlines-hidden -o _deps/spdlog-build/CMakeFiles/spdlog.dir/src/spdlog.cpp.o -c /home/ai/.cache/cpm/spdlog/2dde76e860484cfa438afe512dfaea3c2067fb2a/src/spdlog.cpp",
+  "file": "/home/ai/.cache/cpm/spdlog/2dde76e860484cfa438afe512dfaea3c2067fb2a/src/spdlog.cpp",
+  "output": "_deps/spdlog-build/CMakeFiles/spdlog.dir/src/spdlog.cpp.o"
+},
+{
+  "directory": "/home/ai/ljj/tp/build",
+  "command": "/usr/bin/c++ -DSPDLOG_COMPILED_LIB -I/home/ai/.cache/cpm/spdlog/2dde76e860484cfa438afe512dfaea3c2067fb2a/include  -std=c++17 -Wall -Wextra -Werror -g -std=c++17 -fPIC -fvisibility=hidden -fvisibility-inlines-hidden -o _deps/spdlog-build/CMakeFiles/spdlog.dir/src/stdout_sinks.cpp.o -c /home/ai/.cache/cpm/spdlog/2dde76e860484cfa438afe512dfaea3c2067fb2a/src/stdout_sinks.cpp",
+  "file": "/home/ai/.cache/cpm/spdlog/2dde76e860484cfa438afe512dfaea3c2067fb2a/src/stdout_sinks.cpp",
+  "output": "_deps/spdlog-build/CMakeFiles/spdlog.dir/src/stdout_sinks.cpp.o"
+},
+{
+  "directory": "/home/ai/ljj/tp/build",
+  "command": "/usr/bin/c++ -DSPDLOG_COMPILED_LIB -I/home/ai/.cache/cpm/spdlog/2dde76e860484cfa438afe512dfaea3c2067fb2a/include  -std=c++17 -Wall -Wextra -Werror -g -std=c++17 -fPIC -fvisibility=hidden -fvisibility-inlines-hidden -o _deps/spdlog-build/CMakeFiles/spdlog.dir/src/color_sinks.cpp.o -c /home/ai/.cache/cpm/spdlog/2dde76e860484cfa438afe512dfaea3c2067fb2a/src/color_sinks.cpp",
+  "file": "/home/ai/.cache/cpm/spdlog/2dde76e860484cfa438afe512dfaea3c2067fb2a/src/color_sinks.cpp",
+  "output": "_deps/spdlog-build/CMakeFiles/spdlog.dir/src/color_sinks.cpp.o"
+},
+{
+  "directory": "/home/ai/ljj/tp/build",
+  "command": "/usr/bin/c++ -DSPDLOG_COMPILED_LIB -I/home/ai/.cache/cpm/spdlog/2dde76e860484cfa438afe512dfaea3c2067fb2a/include  -std=c++17 -Wall -Wextra -Werror -g -std=c++17 -fPIC -fvisibility=hidden -fvisibility-inlines-hidden -o _deps/spdlog-build/CMakeFiles/spdlog.dir/src/file_sinks.cpp.o -c /home/ai/.cache/cpm/spdlog/2dde76e860484cfa438afe512dfaea3c2067fb2a/src/file_sinks.cpp",
+  "file": "/home/ai/.cache/cpm/spdlog/2dde76e860484cfa438afe512dfaea3c2067fb2a/src/file_sinks.cpp",
+  "output": "_deps/spdlog-build/CMakeFiles/spdlog.dir/src/file_sinks.cpp.o"
+},
+{
+  "directory": "/home/ai/ljj/tp/build",
+  "command": "/usr/bin/c++ -DSPDLOG_COMPILED_LIB -I/home/ai/.cache/cpm/spdlog/2dde76e860484cfa438afe512dfaea3c2067fb2a/include  -std=c++17 -Wall -Wextra -Werror -g -std=c++17 -fPIC -fvisibility=hidden -fvisibility-inlines-hidden -o _deps/spdlog-build/CMakeFiles/spdlog.dir/src/async.cpp.o -c /home/ai/.cache/cpm/spdlog/2dde76e860484cfa438afe512dfaea3c2067fb2a/src/async.cpp",
+  "file": "/home/ai/.cache/cpm/spdlog/2dde76e860484cfa438afe512dfaea3c2067fb2a/src/async.cpp",
+  "output": "_deps/spdlog-build/CMakeFiles/spdlog.dir/src/async.cpp.o"
+},
+{
+  "directory": "/home/ai/ljj/tp/build",
+  "command": "/usr/bin/c++ -DSPDLOG_COMPILED_LIB -I/home/ai/.cache/cpm/spdlog/2dde76e860484cfa438afe512dfaea3c2067fb2a/include  -std=c++17 -Wall -Wextra -Werror -g -std=c++17 -fPIC -fvisibility=hidden -fvisibility-inlines-hidden -o _deps/spdlog-build/CMakeFiles/spdlog.dir/src/cfg.cpp.o -c /home/ai/.cache/cpm/spdlog/2dde76e860484cfa438afe512dfaea3c2067fb2a/src/cfg.cpp",
+  "file": "/home/ai/.cache/cpm/spdlog/2dde76e860484cfa438afe512dfaea3c2067fb2a/src/cfg.cpp",
+  "output": "_deps/spdlog-build/CMakeFiles/spdlog.dir/src/cfg.cpp.o"
+},
+{
+  "directory": "/home/ai/ljj/tp/build",
+  "command": "/usr/bin/c++ -DSPDLOG_COMPILED_LIB -I/home/ai/.cache/cpm/spdlog/2dde76e860484cfa438afe512dfaea3c2067fb2a/include  -std=c++17 -Wall -Wextra -Werror -g -std=c++17 -fPIC -fvisibility=hidden -fvisibility-inlines-hidden -o _deps/spdlog-build/CMakeFiles/spdlog.dir/src/bundled_fmtlib_format.cpp.o -c /home/ai/.cache/cpm/spdlog/2dde76e860484cfa438afe512dfaea3c2067fb2a/src/bundled_fmtlib_format.cpp",
+  "file": "/home/ai/.cache/cpm/spdlog/2dde76e860484cfa438afe512dfaea3c2067fb2a/src/bundled_fmtlib_format.cpp",
+  "output": "_deps/spdlog-build/CMakeFiles/spdlog.dir/src/bundled_fmtlib_format.cpp.o"
+},
+{
+  "directory": "/home/ai/ljj/tp/build",
+  "command": "/usr/bin/c++ -I/home/ai/ljj/tp/ccsrc/DistributedIR/include -I/home/ai/ljj/tp/ccsrc/common/include -I/home/ai/.cache/cpm/result/1455fe57eccf7e89e04f0dfba03e2127a2af7cf5/include -I/home/ai/.cache/cpm/fmt/98fbb10177bd3d9adb0f2e67d8a84a6f9ab1beca/include -I/home/ai/.cache/cpm/range/ad805cfa3e1e6668e748cfcc4a99f729f86a41df/include -I/home/ai/.cache/cpm/spdlog/2dde76e860484cfa438afe512dfaea3c2067fb2a/include  -std=c++17 -Wall -Wextra -Werror -g -fPIC -fvisibility=hidden -fvisibility-inlines-hidden -o ccsrc/DistributedIR/CMakeFiles/DistributedIR.dir/block.cc.o -c /home/ai/ljj/tp/ccsrc/DistributedIR/block.cc",
+  "file": "/home/ai/ljj/tp/ccsrc/DistributedIR/block.cc",
+  "output": "ccsrc/DistributedIR/CMakeFiles/DistributedIR.dir/block.cc.o"
+},
+{
+  "directory": "/home/ai/ljj/tp/build",
+  "command": "/usr/bin/c++ -I/home/ai/ljj/tp/ccsrc/DistributedIR/include -I/home/ai/ljj/tp/ccsrc/common/include -I/home/ai/.cache/cpm/result/1455fe57eccf7e89e04f0dfba03e2127a2af7cf5/include -I/home/ai/.cache/cpm/fmt/98fbb10177bd3d9adb0f2e67d8a84a6f9ab1beca/include -I/home/ai/.cache/cpm/range/ad805cfa3e1e6668e748cfcc4a99f729f86a41df/include -I/home/ai/.cache/cpm/spdlog/2dde76e860484cfa438afe512dfaea3c2067fb2a/include  -std=c++17 -Wall -Wextra -Werror -g -fPIC -fvisibility=hidden -fvisibility-inlines-hidden -o ccsrc/DistributedIR/CMakeFiles/DistributedIR.dir/dividegraph.cpp.o -c /home/ai/ljj/tp/ccsrc/DistributedIR/dividegraph.cpp",
+  "file": "/home/ai/ljj/tp/ccsrc/DistributedIR/dividegraph.cpp",
+  "output": "ccsrc/DistributedIR/CMakeFiles/DistributedIR.dir/dividegraph.cpp.o"
+},
+{
+  "directory": "/home/ai/ljj/tp/build",
+  "command": "/usr/bin/c++ -DPYBIND11_CURRENT_MODULE_NAME=_graph -DVERSION_INFO=\"\" -D_graph_EXPORTS -I/home/ai/ljj/tp/ccsrc/DistributedIR/include -I/home/ai/ljj/tp/ccsrc/common/include -I/home/ai/.cache/cpm/result/1455fe57eccf7e89e04f0dfba03e2127a2af7cf5/include -I/home/ai/.cache/cpm/fmt/98fbb10177bd3d9adb0f2e67d8a84a6f9ab1beca/include -I/home/ai/.cache/cpm/range/ad805cfa3e1e6668e748cfcc4a99f729f86a41df/include -I/home/ai/.cache/cpm/spdlog/2dde76e860484cfa438afe512dfaea3c2067fb2a/include -I/home/ai/ljj/tp/ccsrc/policy/include -I/home/ai/ljj/tp/ccsrc/cluster/include -I/home/ai/ljj/tp/ccsrc/cost_graph/include -isystem /home/ai/.cache/cpm/pybind11/70f71515e53bf16e09cf4a4d17e50a075cb8ae5e/include -isystem /home/ai/miniconda3/envs/framework-jax/include/python3.9  -std=c++17 -Wall -Wextra -Werror -g -fPIC -fvisibility=hidden -fvisibility-inlines-hidden -o ccsrc/DistributedIR/python/CMakeFiles/_graph.dir/graph.cc.o -c /home/ai/ljj/tp/ccsrc/DistributedIR/python/graph.cc",
+  "file": "/home/ai/ljj/tp/ccsrc/DistributedIR/python/graph.cc",
+  "output": "ccsrc/DistributedIR/python/CMakeFiles/_graph.dir/graph.cc.o"
+},
+{
+  "directory": "/home/ai/ljj/tp/build",
+  "command": "/usr/bin/c++ -I/home/ai/ljj/tp/ccsrc/policy/include -I/home/ai/ljj/tp/ccsrc/cluster/include -I/home/ai/ljj/tp/ccsrc/cost_graph/include -I/home/ai/ljj/tp/ccsrc/DistributedIR/include -I/home/ai/ljj/tp/ccsrc/common/include -I/home/ai/.cache/cpm/result/1455fe57eccf7e89e04f0dfba03e2127a2af7cf5/include -I/home/ai/.cache/cpm/fmt/98fbb10177bd3d9adb0f2e67d8a84a6f9ab1beca/include -I/home/ai/.cache/cpm/range/ad805cfa3e1e6668e748cfcc4a99f729f86a41df/include -I/home/ai/.cache/cpm/spdlog/2dde76e860484cfa438afe512dfaea3c2067fb2a/include -isystem /home/ai/.cache/cpm/pybind11/70f71515e53bf16e09cf4a4d17e50a075cb8ae5e/include -isystem /home/ai/miniconda3/envs/framework-jax/include/python3.9  -std=c++17 -Wall -Wextra -Werror -g -fPIC -fvisibility=hidden -fvisibility-inlines-hidden -o ccsrc/policy/fd-dps/CMakeFiles/FDDPSPolicy.dir/fddps_algorithm.cc.o -c /home/ai/ljj/tp/ccsrc/policy/fd-dps/fddps_algorithm.cc",
+  "file": "/home/ai/ljj/tp/ccsrc/policy/fd-dps/fddps_algorithm.cc",
+  "output": "ccsrc/policy/fd-dps/CMakeFiles/FDDPSPolicy.dir/fddps_algorithm.cc.o"
+},
+{
+  "directory": "/home/ai/ljj/tp/build",
+  "command": "/usr/bin/c++ -I/home/ai/ljj/tp/ccsrc/policy/include -I/home/ai/ljj/tp/ccsrc/cluster/include -I/home/ai/ljj/tp/ccsrc/cost_graph/include -I/home/ai/ljj/tp/ccsrc/DistributedIR/include -I/home/ai/ljj/tp/ccsrc/common/include -I/home/ai/.cache/cpm/result/1455fe57eccf7e89e04f0dfba03e2127a2af7cf5/include -I/home/ai/.cache/cpm/fmt/98fbb10177bd3d9adb0f2e67d8a84a6f9ab1beca/include -I/home/ai/.cache/cpm/range/ad805cfa3e1e6668e748cfcc4a99f729f86a41df/include -I/home/ai/.cache/cpm/spdlog/2dde76e860484cfa438afe512dfaea3c2067fb2a/include -isystem /home/ai/.cache/cpm/pybind11/70f71515e53bf16e09cf4a4d17e50a075cb8ae5e/include -isystem /home/ai/miniconda3/envs/framework-jax/include/python3.9  -std=c++17 -Wall -Wextra -Werror -g -fPIC -fvisibility=hidden -fvisibility-inlines-hidden -o ccsrc/policy/sgp/CMakeFiles/SGPPolicy.dir/graphPartition.cc.o -c /home/ai/ljj/tp/ccsrc/policy/sgp/graphPartition.cc",
+  "file": "/home/ai/ljj/tp/ccsrc/policy/sgp/graphPartition.cc",
+  "output": "ccsrc/policy/sgp/CMakeFiles/SGPPolicy.dir/graphPartition.cc.o"
+},
+{
+  "directory": "/home/ai/ljj/tp/build",
+  "command": "/usr/bin/c++ -I/home/ai/.cache/cpm/googletest/8e8d7ee9784b3df7d172c774e4a14818bb2b152f/googlemock/include -I/home/ai/.cache/cpm/googletest/8e8d7ee9784b3df7d172c774e4a14818bb2b152f/googlemock -isystem /home/ai/.cache/cpm/googletest/8e8d7ee9784b3df7d172c774e4a14818bb2b152f/googletest/include -isystem /home/ai/.cache/cpm/googletest/8e8d7ee9784b3df7d172c774e4a14818bb2b152f/googletest  -std=c++17 -Wall -Wextra -Werror -g -std=c++17 -fPIC -fvisibility=hidden -fvisibility-inlines-hidden -Wall -Wshadow -Wno-error=dangling-else -DGTEST_HAS_PTHREAD=1 -fexceptions -Wextra -Wno-unused-parameter -Wno-missing-field-initializers -o _deps/googletest-build/googlemock/CMakeFiles/gmock.dir/src/gmock-all.cc.o -c /home/ai/.cache/cpm/googletest/8e8d7ee9784b3df7d172c774e4a14818bb2b152f/googlemock/src/gmock-all.cc",
+  "file": "/home/ai/.cache/cpm/googletest/8e8d7ee9784b3df7d172c774e4a14818bb2b152f/googlemock/src/gmock-all.cc",
+  "output": "_deps/googletest-build/googlemock/CMakeFiles/gmock.dir/src/gmock-all.cc.o"
+},
+{
+  "directory": "/home/ai/ljj/tp/build",
+  "command": "/usr/bin/c++ -isystem /home/ai/.cache/cpm/googletest/8e8d7ee9784b3df7d172c774e4a14818bb2b152f/googlemock/include -isystem /home/ai/.cache/cpm/googletest/8e8d7ee9784b3df7d172c774e4a14818bb2b152f/googlemock -isystem /home/ai/.cache/cpm/googletest/8e8d7ee9784b3df7d172c774e4a14818bb2b152f/googletest/include -isystem /home/ai/.cache/cpm/googletest/8e8d7ee9784b3df7d172c774e4a14818bb2b152f/googletest  -std=c++17 -Wall -Wextra -Werror -g -std=c++17 -fPIC -fvisibility=hidden -fvisibility-inlines-hidden -Wall -Wshadow -Wno-error=dangling-else -DGTEST_HAS_PTHREAD=1 -fexceptions -Wextra -Wno-unused-parameter -Wno-missing-field-initializers -o _deps/googletest-build/googlemock/CMakeFiles/gmock_main.dir/src/gmock_main.cc.o -c /home/ai/.cache/cpm/googletest/8e8d7ee9784b3df7d172c774e4a14818bb2b152f/googlemock/src/gmock_main.cc",
+  "file": "/home/ai/.cache/cpm/googletest/8e8d7ee9784b3df7d172c774e4a14818bb2b152f/googlemock/src/gmock_main.cc",
+  "output": "_deps/googletest-build/googlemock/CMakeFiles/gmock_main.dir/src/gmock_main.cc.o"
+},
+{
+  "directory": "/home/ai/ljj/tp/build",
+  "command": "/usr/bin/c++ -I/home/ai/.cache/cpm/googletest/8e8d7ee9784b3df7d172c774e4a14818bb2b152f/googletest/include -I/home/ai/.cache/cpm/googletest/8e8d7ee9784b3df7d172c774e4a14818bb2b152f/googletest  -std=c++17 -Wall -Wextra -Werror -g -std=c++17 -fPIC -fvisibility=hidden -fvisibility-inlines-hidden -Wall -Wshadow -Wno-error=dangling-else -DGTEST_HAS_PTHREAD=1 -fexceptions -Wextra -Wno-unused-parameter -Wno-missing-field-initializers -o _deps/googletest-build/googletest/CMakeFiles/gtest.dir/src/gtest-all.cc.o -c /home/ai/.cache/cpm/googletest/8e8d7ee9784b3df7d172c774e4a14818bb2b152f/googletest/src/gtest-all.cc",
+  "file": "/home/ai/.cache/cpm/googletest/8e8d7ee9784b3df7d172c774e4a14818bb2b152f/googletest/src/gtest-all.cc",
+  "output": "_deps/googletest-build/googletest/CMakeFiles/gtest.dir/src/gtest-all.cc.o"
+},
+{
+  "directory": "/home/ai/ljj/tp/build",
+  "command": "/usr/bin/c++ -isystem /home/ai/.cache/cpm/googletest/8e8d7ee9784b3df7d172c774e4a14818bb2b152f/googletest/include -isystem /home/ai/.cache/cpm/googletest/8e8d7ee9784b3df7d172c774e4a14818bb2b152f/googletest  -std=c++17 -Wall -Wextra -Werror -g -std=c++17 -fPIC -fvisibility=hidden -fvisibility-inlines-hidden -Wall -Wshadow -Wno-error=dangling-else -DGTEST_HAS_PTHREAD=1 -fexceptions -Wextra -Wno-unused-parameter -Wno-missing-field-initializers -o _deps/googletest-build/googletest/CMakeFiles/gtest_main.dir/src/gtest_main.cc.o -c /home/ai/.cache/cpm/googletest/8e8d7ee9784b3df7d172c774e4a14818bb2b152f/googletest/src/gtest_main.cc",
+  "file": "/home/ai/.cache/cpm/googletest/8e8d7ee9784b3df7d172c774e4a14818bb2b152f/googletest/src/gtest_main.cc",
+  "output": "_deps/googletest-build/googletest/CMakeFiles/gtest_main.dir/src/gtest_main.cc.o"
+},
+{
+  "directory": "/home/ai/ljj/tp/build",
+  "command": "/usr/bin/c++ -I/home/ai/ljj/tp/ccsrc/DistributedIR/include -I/home/ai/ljj/tp/ccsrc/common/include -I/home/ai/.cache/cpm/result/1455fe57eccf7e89e04f0dfba03e2127a2af7cf5/include -I/home/ai/.cache/cpm/fmt/98fbb10177bd3d9adb0f2e67d8a84a6f9ab1beca/include -I/home/ai/.cache/cpm/range/ad805cfa3e1e6668e748cfcc4a99f729f86a41df/include -I/home/ai/.cache/cpm/spdlog/2dde76e860484cfa438afe512dfaea3c2067fb2a/include -isystem /home/ai/.cache/cpm/googletest/8e8d7ee9784b3df7d172c774e4a14818bb2b152f/googletest/include -isystem /home/ai/.cache/cpm/googletest/8e8d7ee9784b3df7d172c774e4a14818bb2b152f/googletest  -std=c++17 -Wall -Wextra -Werror -g -fPIE -fvisibility=hidden -fvisibility-inlines-hidden -fno-access-control -o tests/ut/CMakeFiles/test_DistributedIR.dir/test_DistributedIR.cc.o -c /home/ai/ljj/tp/tests/ut/test_DistributedIR.cc",
+  "file": "/home/ai/ljj/tp/tests/ut/test_DistributedIR.cc",
+  "output": "tests/ut/CMakeFiles/test_DistributedIR.dir/test_DistributedIR.cc.o"
+},
+{
+  "directory": "/home/ai/ljj/tp/build",
+  "command": "/usr/bin/c++ -I/home/ai/ljj/tp/ccsrc/common/include -I/home/ai/.cache/cpm/result/1455fe57eccf7e89e04f0dfba03e2127a2af7cf5/include -I/home/ai/.cache/cpm/fmt/98fbb10177bd3d9adb0f2e67d8a84a6f9ab1beca/include -I/home/ai/.cache/cpm/range/ad805cfa3e1e6668e748cfcc4a99f729f86a41df/include -I/home/ai/.cache/cpm/spdlog/2dde76e860484cfa438afe512dfaea3c2067fb2a/include -I/home/ai/ljj/tp/ccsrc/DistributedIR/include -isystem /home/ai/.cache/cpm/googletest/8e8d7ee9784b3df7d172c774e4a14818bb2b152f/googletest/include -isystem /home/ai/.cache/cpm/googletest/8e8d7ee9784b3df7d172c774e4a14818bb2b152f/googletest  -std=c++17 -Wall -Wextra -Werror -g -fPIE -fvisibility=hidden -fvisibility-inlines-hidden -fno-access-control -o tests/ut/CMakeFiles/test_Common.dir/test_common.cc.o -c /home/ai/ljj/tp/tests/ut/test_common.cc",
+  "file": "/home/ai/ljj/tp/tests/ut/test_common.cc",
+  "output": "tests/ut/CMakeFiles/test_Common.dir/test_common.cc.o"
+},
+{
+  "directory": "/home/ai/ljj/tp/build",
+  "command": "/usr/bin/c++ -I/home/ai/ljj/tp/ccsrc/policy/include -I/home/ai/ljj/tp/ccsrc/cluster/include -I/home/ai/ljj/tp/ccsrc/cost_graph/include -I/home/ai/ljj/tp/ccsrc/DistributedIR/include -I/home/ai/ljj/tp/ccsrc/common/include -I/home/ai/.cache/cpm/result/1455fe57eccf7e89e04f0dfba03e2127a2af7cf5/include -I/home/ai/.cache/cpm/fmt/98fbb10177bd3d9adb0f2e67d8a84a6f9ab1beca/include -I/home/ai/.cache/cpm/range/ad805cfa3e1e6668e748cfcc4a99f729f86a41df/include -I/home/ai/.cache/cpm/spdlog/2dde76e860484cfa438afe512dfaea3c2067fb2a/include -isystem /home/ai/.cache/cpm/googletest/8e8d7ee9784b3df7d172c774e4a14818bb2b152f/googletest/include -isystem /home/ai/.cache/cpm/googletest/8e8d7ee9784b3df7d172c774e4a14818bb2b152f/googletest -isystem /home/ai/.cache/cpm/pybind11/70f71515e53bf16e09cf4a4d17e50a075cb8ae5e/include -isystem /home/ai/miniconda3/envs/framework-jax/include/python3.9  -std=c++17 -Wall -Wextra -Werror -g -fPIE -fvisibility=hidden -fvisibility-inlines-hidden -fno-access-control -o tests/ut/CMakeFiles/test_fddps.dir/test_fddps.cc.o -c /home/ai/ljj/tp/tests/ut/test_fddps.cc",
+  "file": "/home/ai/ljj/tp/tests/ut/test_fddps.cc",
+  "output": "tests/ut/CMakeFiles/test_fddps.dir/test_fddps.cc.o"
+}
+]

@@ -1,0 +1,57 @@
+#!/usr/bin/env bash
+
+# require cmake 3.22 or higher
+# require ninja
+# require python 3.7 or higher
+function usage() {
+  echo "Usage:"
+  echo "$0 [--build DIR] [--type BUILD_TYPE] [--python-executable PYTHON_EXECUTABLE] [-- CMAKE_FLAGS]"
+  echo "    --type                  pass to CMAKE_BUILD_TYPE. default: Debug"
+  echo "    --python-executable     python executable"
+  echo "    --cmp-cache             cpm cache path. default: \$HOME/.cache/cpm"
+  echo "    --                      all args after this pass to cmake"
+  echo ""
+  exit 1
+}
+
+_BUILD_TYPE="Debug"
+_PYTHON_EXECUTABLE=$(python3 -c "import sys; print(sys.executable)")
+_CPM_CACHE_PATH="$HOME/.cache/cpm"
+_BUILD_DIR="build"
+_CMAKE_FLAGS="-GNinja"
+
+while true; do
+    if [[ "$1" == "--help" ]]; then
+        usage
+    elif [[ "$1" == "--build" ]]; then
+        shift
+        _BUILD_DIR="$1"
+    elif [[ "$1" == "--type" ]]; then
+        shift
+        _BUILD_TYPE="$1"
+    elif [[ "$1" == "--python-executable" ]]; then
+        shift
+        _PYTHON_EXECUTABLE="$1"
+    elif [[ "$1" == "--cpm-cache" ]]; then
+        shift
+        _CPM_CACHE_PATH="$1"
+    elif [[ "$1" == "--" ]]; then
+        shift
+        _CMAKE_FLAGS="$*"
+        break
+    elif [[ -z "$1" ]]; then
+        break
+    else
+        echo "unknown option: $1"
+        exit 1
+    fi
+    shift
+done
+set -x
+which cmake
+cmake --version
+cmake -S. -B $_BUILD_DIR \
+-DPYTHON_EXECUTABLE=$_PYTHON_EXECUTABLE \
+-DCMAKE_BUILD_TYPE=$_BUILD_TYPE \
+-DCPM_SOURCE_CACHE=$_CPM_CACHE_PATH \
+$_CMAKE_FLAGS

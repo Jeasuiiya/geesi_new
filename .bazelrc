@@ -1,0 +1,7 @@
+common --experimental_repo_remote_exec
+
+try-import %workspace%/.tf.bazelrc
+# try-import %workspace%/.tf_configure.bazelrc
+
+build --cxxopt=-std=c++17
+build --check_visibility=false

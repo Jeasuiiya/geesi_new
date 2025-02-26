@@ -1,0 +1,25 @@
+# require CPM
+include(CPM)
+
+# fetch_llvm
+function(fetch_llvm)
+  set(LLVM_ENABLE_PROJECTS mlir CACHE STRING "")
+  set(LLVM_TARGETS_TO_BUILD host CACHE STRING "")
+  set(LLVM_BUILD_EXAMPLES OFF CACHE BOOL "")
+  set(LLVM_BUILD_TOOLS ON CACHE BOOL "")
+  set(LLVM_INCLUDE_EXAMPLES OFF CACHE BOOL "")
+  set(LLVM_INCLUDE_TESTS OFF CACHE BOOL "")
+  set(LLVM_INCLUDE_BENCHMARKS OFF CACHE BOOL "")
+  set(LLVM_ENABLE_ASSERTIONS ON CACHE BOOL "")
+  set(LLVM_APPEND_VC_REV OFF CACHE BOOL "")
+  set(LLVM_ENABLE_ZLIB OFF CACHE BOOL "")
+  set(LLVM_INSTALL_UTILS ON CACHE BOOL "")
+  set(BUILD_SHARED_LIBS ${BUILD_SHARED_LIBS} CACHE STRING "")
+  set(LLVM_ENABLE_OCAMLDOC OFF CACHE BOOL "")
+  set(LLVM_ENABLE_BINDINGS OFF CACHE BOOL "")
+  CPMAddPackage(
+    NAME llvm
+    URL https://github.com/llvm/llvm-project/archive/refs/tags/llvmorg-15.0.7.zip
+    SOURCE_SUBDIR llvm
+    EXCLUDE_FROM_ALL ON)
+endfunction(fetch_llvm)

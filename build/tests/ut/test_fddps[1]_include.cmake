@@ -1,0 +1,5 @@
+if(EXISTS "/home/ai/ljj/tp/build/tests/ut/test_fddps[1]_tests.cmake")
+  include("/home/ai/ljj/tp/build/tests/ut/test_fddps[1]_tests.cmake")
+else()
+  add_test(test_fddps_NOT_BUILT test_fddps_NOT_BUILT)
+endif()

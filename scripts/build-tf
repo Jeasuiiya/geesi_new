@@ -1,0 +1,65 @@
+#!/usr/bin/env bash
+
+set -e
+which bazel
+bazel --version
+ROOT_DIR=$(cd "$(dirname "$0")/.." || exit;pwd)
+cd $ROOT_DIR
+function usage() {
+  echo "Usage:"
+  echo "$0 [--config] [--dest dest] [-- [bazel_flags]...]"
+  echo "    --config    run tf config"
+  echo "    --dest      tensorflow output path"
+  echo "    --          all args after this pass to bazel build"
+  echo ""
+  exit 1
+}
+_TF_COFNIG=0
+_TF_COFNIG_ONLY=0
+_BAZEL_FLAGS=""
+_TF_BUILD_DEST=$ROOT_DIR/dist
+_BAZEL_WORKSPACE=${ROOT_DIR##*/}
+while true; do
+    if [[ "$1" == "--help" ]]; then
+        usage
+    elif [[ "$1" == "--config" ]]; then
+        _TF_COFNIG=1
+    elif [[ "$1" == "--config-only" ]]; then
+        _TF_COFNIG_ONLY=1
+    elif [[ "$1" == "--dest" ]]; then
+        shift
+        _TF_BUILD_DEST="$1"
+    elif [[ "$1" == "--" ]]; then
+        shift
+        _BAZEL_FLAGS="$*"
+        break
+    elif [[ -z "$1" ]]; then
+        break
+    else
+        echo "unknown option: $1"
+        exit 1
+    fi
+    shift
+done
+
+if [[ ! -f $ROOT_DIR/.tf_configure.bazelrc || ! -f $ROOT_DIR/.tf.bazelrc || $_TF_COFNIG == 1 || $_TF_COFNIG_ONLY == 1 ]];
+then
+    rm -f $ROOT_DIR/.tf_configure.bazelrc
+    bazel run tf_config
+    cp -f $ROOT_DIR/bazel-${_BAZEL_WORKSPACE}/external/org_tensorflow/.bazelrc $ROOT_DIR/.tf.bazelrc
+    cp -f $ROOT_DIR/bazel-bin/tf_config.runfiles/org_tensorflow/.tf_configure.bazelrc $ROOT_DIR/.tf_configure.bazelrc
+    if [[ $_TF_COFNIG_ONLY == 1 ]];
+    then
+        exit 0
+    fi
+fi
+
+bazel build @org_tensorflow//tensorflow/tools/pip_package:build_pip_package $_BAZEL_FLAGS
+rm -f $ROOT_DIR/bazel-${_BAZEL_WORKSPACE}/external/org_tensorflow/bazel-bin
+ln -s $ROOT_DIR/bazel-bin/external/org_tensorflow $ROOT_DIR/bazel-${_BAZEL_WORKSPACE}/external/org_tensorflow/bazel-bin
+
+cd $ROOT_DIR/bazel-${_BAZEL_WORKSPACE}/external/org_tensorflow || exit
+
+./bazel-bin/tensorflow/tools/pip_package/build_pip_package $_TF_BUILD_DEST
+
+cd $ROOT_DIR

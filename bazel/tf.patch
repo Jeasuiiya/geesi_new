@@ -1,0 +1,46 @@
+diff --git tensorflow/BUILD tensorflow/BUILD
+index 6e6ab138a2f..7ed9908cf75 100644
+--- tensorflow/BUILD
++++ tensorflow/BUILD
+@@ -1103,7 +1103,15 @@ tf_cc_shared_library(
+         "//tensorflow/compiler/xla/stream_executor:stream_executor_impl",
+     ] + tf_additional_binary_deps(),
+     soversion = VERSION,
+-    static_deps = PACKAGE_STATIC_DEPS,
++    static_deps = PACKAGE_STATIC_DEPS + [
++        "@//:__subpackages__",
++        "@global_pybind11//:__subpackages__",
++        "@global_config_python//:__subpackages__",
++        "@fmt//:__subpackages__",
++        "@result//:__subpackages__",
++        "@range-v3//:__subpackages__",
++        "@spdlog//:__subpackages__",
++    ],
+     visibility = ["//visibility:public"],
+ )
+ 
+diff --git tensorflow/core/common_runtime/BUILD tensorflow/core/common_runtime/BUILD
+index 77e86d90f9c..d590a1563c0 100644
+--- tensorflow/core/common_runtime/BUILD
++++ tensorflow/core/common_runtime/BUILD
+@@ -1863,6 +1863,7 @@ tf_cuda_library(
+         ":step_stats_collector",
+         ":threadpool_device",
+         ":threadpool_device_factory",
++        "@geesibling//:TFAdapterPlacementPass",
+     ],
+ )
+ 
+diff --git tensorflow/tools/pip_package/setup.py tensorflow/tools/pip_package/setup.py
+index 74a1962c334..2b157ea809f 100644
+--- tensorflow/tools/pip_package/setup.py
++++ tensorflow/tools/pip_package/setup.py
+@@ -46,7 +46,7 @@ from setuptools.dist import Distribution
+ # result for pip.
+ # Also update tensorflow/tensorflow.bzl and
+ # tensorflow/core/public/version.h
+-_VERSION = '2.11.0'
++_VERSION = '2.11.0+geesibling'
+ 
+ 
+ # We use the same setup.py for all tensorflow_* packages and for the nightly

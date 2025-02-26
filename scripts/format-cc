@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+if [ $# -eq 0 ]; then
+    echo "usage: format-cc [DIR] [FLAGS]"
+    exit
+fi
+
+if [ -n "$CLANG_PATH" ]; then
+    PATH=$CLANG_PATH:$PATH
+fi
+
+FLAGS="-i"
+if [ -n "$2" ]; then
+    FLAGS=$2
+fi
+
+which clang-foramt
+clang-format --version
+./scripts/batch.py --regex-cc --flags="$FLAGS" $1
