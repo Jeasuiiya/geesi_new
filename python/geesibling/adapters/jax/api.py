@@ -84,7 +84,7 @@ def parallelize(func: Optional[Callable] = None, *, parallel_method=""):
                     dyn_args = args
                 args_flat, in_tree = tree_flatten(dyn_args)
                 f, out_tree = flatten_fun_nokwargs(f, in_tree)
-                batch_invars = donation_vector((1,), dyn_args, kwargs)
+                batch_invars = donation_vector((1,), set(), dyn_args, kwargs)
 #                abstract_args = map(abstractify_with_aval, args_flat)
 #                abstract_args_micro = map(abstractify_with_aval, args_flat)
 #                closed_jaxpr, out_tree= jax.make_jaxpr(func, return_shape=True)(*args, **kwargs)

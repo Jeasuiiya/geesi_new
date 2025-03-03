@@ -245,7 +245,7 @@ class MeshHostWorker:
         self.node_ips=node_ips
         self.distributed_client = (
             xla_client._xla.get_distributed_runtime_client(
-                server_address, host_id, use_coordination_service=False))
+                server_address, host_id))
         self.distributed_client.connect()
         self.backend = xla_client.make_gpu_client(self.distributed_client,
                                                       node_id=host_id)
@@ -880,7 +880,7 @@ class DistributedPhysicalDeviceMesh():
 
         server_address = f"{ray.util.get_node_ip_address()}:{port}"
         service_server = xla_client._xla.get_distributed_runtime_service(
-            server_address, self.num_hosts, use_coordination_service=False)
+            server_address, self.num_hosts)
         time.sleep(0.4)
 
         workers = []

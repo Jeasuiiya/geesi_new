@@ -372,15 +372,14 @@ def jaxpr_to_hlo(name: str,
     axis_env = xla.AxisEnv(nreps=1, names=(), sizes=())
     name_stack = source_info_util.new_name_stack(wrap_name(name, "parallelize"))
     closed_jaxpr = ClosedJaxpr(closed_jaxpr.jaxpr, consts)
-    unordered_effects = [
-        eff for eff in closed_jaxpr.effects if eff not in core.ordered_effects
-    ]
     ordered_effects = [
         eff for eff in closed_jaxpr.effects if eff in core.ordered_effects
     ]
     lowering_result = mlir.lower_jaxpr_to_module(
-        name, closed_jaxpr, unordered_effects, ordered_effects, None, platform,
-        mlir.ReplicaAxisContext(axis_env), name_stack, donated_invars)
+        name, closed_jaxpr, ordered_effects=ordered_effects, backend_or_name=None, 
+        platforms=[platform], axis_context=mlir.ReplicaAxisContext(axis_env), 
+        name_stack=name_stack, donated_args=donated_invars, 
+        lowering_parameters=mlir.LoweringParameters())
     xla_computation = xe.mlir.mlir_module_to_xla_computation(
         mlir.module_to_string(lowering_result.module),
         use_tuple_args=tuple_args,

@@ -38,13 +38,16 @@ import jax
 import jax.numpy as jnp
 import numpy as np
 import optax
-from datasets import Dataset, load_dataset, load_from_disk, DatasetDict
+from datasets import Dataset, load_dataset, DatasetDict, load_from_disk
 from flax import jax_utils, traverse_util
 from flax.jax_utils import pad_shard_unpad, unreplicate
 from flax.training import train_state
 from flax.training.common_utils import get_metrics, onehot, shard, shard_prng_key
 from huggingface_hub import HfApi
 from tqdm import tqdm
+# from geesibling.adapters.jax import parallelize, device_config, DeviceType
+from geesibling.adapters.jax.api import parallelize
+from geesibling.adapters.jax.parallel_method import PipeshardParallel
 
 import transformers
 from transformers import (
@@ -182,9 +185,9 @@ class ModelArguments:
         default=False,
         metadata={
             "help": (
-                "Whether to trust the execution of code from datasets/models defined on the Hub."
-                " This option should only be set to `True` for repositories you trust and in which you have read the"
-                " code, as it will execute code present on the Hub on your local machine."
+                "Whether or not to allow for custom models defined on the Hub in their own modeling files. This option "
+                "should only be set to `True` for repositories you trust and in which you have read the code, as it will "
+                "execute code present on the Hub on your local machine."
             )
         },
     )
@@ -224,6 +227,9 @@ class DataTrainingArguments:
                 "value if set."
             )
         },
+    )
+    overwrite_cache: bool = field(
+        default=False, metadata={"help": "Overwrite the cached training and evaluation sets"}
     )
     validation_split_percentage: Optional[int] = field(
         default=5,
@@ -398,40 +404,38 @@ def main():
     # download the dataset.
     if data_args.dataset_name is not None:
         # Downloading and loading a dataset from the hub.
-        data_obj = load_from_disk("./norwegian-gpt2")
-        train_lenth = int(len(data_obj) * 0.05)
-        data_val = data_obj.select(range(train_lenth))
-        data_train = data_obj.select(range(train_lenth, len(data_obj)))
-        dataset = DatasetDict({"train": data_train, "validation": data_val})
-        # dataset = load_dataset(
-        #     data_args.dataset_name,
-        #     data_args.dataset_config_name,
-        #     cache_dir=model_args.cache_dir,
-        #     keep_in_memory=False,
-        #     token=model_args.token,
-        #     num_proc=data_args.preprocessing_num_workers,
-        #     trust_remote_code=model_args.trust_remote_code,
-        # )
-        #
-        # if "validation" not in dataset.keys():
-        #     dataset["validation"] = load_dataset(
-        #         data_args.dataset_name,
-        #         data_args.dataset_config_name,
-        #         split=f"train[:{data_args.validation_split_percentage}%]",
-        #         cache_dir=model_args.cache_dir,
-        #         token=model_args.token,
-        #         num_proc=data_args.preprocessing_num_workers,
-        #         trust_remote_code=model_args.trust_remote_code,
-        #     )
-        #     dataset["train"] = load_dataset(
-        #         data_args.dataset_name,
-        #         data_args.dataset_config_name,
-        #         split=f"train[{data_args.validation_split_percentage}%:]",
-        #         cache_dir=model_args.cache_dir,
-        #         token=model_args.token,
-        #         num_proc=data_args.preprocessing_num_workers,
-        #         trust_remote_code=model_args.trust_remote_code,
-        #     )
+       data_obj = load_from_disk("./norwegian-gpt2")
+       train_lenth = int(len(data_obj) * 0.05)
+       data_val = data_obj.select(range(train_lenth))
+       data_train = data_obj.select(range(train_lenth, len(data_obj)))
+       dataset = DatasetDict({"train": data_train, "validation": data_val})
+
+       ''' dataset = load_dataset(
+            data_args.dataset_name,
+            data_args.dataset_config_name,
+            cache_dir=model_args.cache_dir,
+            keep_in_memory=False,
+            token=model_args.token,
+            num_proc=data_args.preprocessing_num_workers,
+        )
+
+        if "validation" not in dataset.keys():
+            dataset["validation"] = load_dataset(
+                data_args.dataset_name,
+                data_args.dataset_config_name,
+                split=f"train[:{data_args.validation_split_percentage}%]",
+                cache_dir=model_args.cache_dir,
+                token=model_args.token,
+                num_proc=data_args.preprocessing_num_workers,
+            )
+            dataset["train"] = load_dataset(
+                data_args.dataset_name,
+                data_args.dataset_config_name,
+                split=f"train[{data_args.validation_split_percentage}%:]",
+                cache_dir=model_args.cache_dir,
+                token=model_args.token,
+                num_proc=data_args.preprocessing_num_workers,
+            )'''
     else:
         data_files = {}
         dataset_args = {}
@@ -654,9 +658,11 @@ def main():
 
     # Store some constant
     num_epochs = int(training_args.num_train_epochs)
-    train_batch_size = int(training_args.per_device_train_batch_size) * jax.device_count()
+    # train_batch_size = int(training_args.per_device_train_batch_size) * jax.device_count() 不乘以设备数
+    train_batch_size = training_args.per_device_train_batch_size
     per_device_eval_batch_size = int(training_args.per_device_eval_batch_size)
-    eval_batch_size = per_device_eval_batch_size * jax.device_count()
+    # eval_batch_size = per_device_eval_batch_size * jax.device_count() 验证集的设备数
+    eval_batch_size = per_device_eval_batch_size
     steps_per_epoch = len(train_dataset) // train_batch_size
     total_train_steps = steps_per_epoch * num_epochs
 
@@ -704,7 +710,8 @@ def main():
         )
 
     # Setup train state
-    state = TrainState.create(apply_fn=model.__call__, params=model.params, tx=optimizer, dropout_rng=dropout_rng)
+    # state = TrainState.create(apply_fn=model.__call__, params=model.params, tx=optimizer, dropout_rng=dropout_rng) # 修改5
+    state = train_state.TrainState.create(apply_fn=model.__call__, params=model.params,tx=optimizer)
 
     def loss_fn(logits, labels):
         shift_logits = logits[..., :-1, :]
@@ -712,17 +719,16 @@ def main():
         loss = optax.softmax_cross_entropy(shift_logits, onehot(shift_labels, shift_logits.shape[-1]))
         return loss.mean()
 
+    method=PipeshardParallel(
+        policy = "sgp",
+        num_microbatch=4,
+        layer_method="auto",
+	    if_ray=True
+    )
+    @parallelize(parallel_method=method)
     # Define gradient update step fn
-    # method = PipeshardParallel(
-    #     policy="sgp",
-    #     num_microbatch=4,
-    #     layer_method="auto",
-    #     if_ray=True
-    #
-    # )
-    # @parallelize(parallel_method=method)
-    def train_step(state, batch):
-        dropout_rng, new_dropout_rng = jax.random.split(state.dropout_rng)
+    def train_step(state, batch, dropout_rng): # 修改1 —— 添加dropout_rng参数
+        # dropout_rng, new_dropout_rng = jax.random.split(state.dropout_rng) #修改2 —— 注释掉整行
 
         def compute_loss(params):
             labels = batch.pop("labels")
@@ -730,14 +736,14 @@ def main():
             loss = loss_fn(logits, labels)
             return loss
 
-        grad_fn = jax.value_and_grad(compute_loss)
+        grad_fn = method.value_and_grad(compute_loss) # 修改3 —— 把jax的方法改成method的方法
         loss, grad = grad_fn(state.params)
-        grad = jax.lax.pmean(grad, "batch")
+        # grad = jax.lax.pmean(grad, "batch") 分配给不同设备计算，再获取平均梯度，以实现并行
 
-        new_state = state.apply_gradients(grads=grad, dropout_rng=new_dropout_rng)
+        new_state = state.apply_gradients(grads=grad) # 修改4 —— 删除掉dropout_rng=new_dropout_rng参数
 
         metrics = {"loss": loss, "learning_rate": linear_decay_lr_schedule_fn(state.step)}
-        metrics = jax.lax.pmean(metrics, axis_name="batch")
+        # metrics = jax.lax.pmean(metrics, axis_name="batch") 并行计算指标
 
         return new_state, metrics
 
@@ -749,21 +755,22 @@ def main():
 
         # summarize metrics
         metrics = {"loss": loss}
-        metrics = jax.lax.pmean(metrics, axis_name="batch")
+        # metrics = jax.lax.pmean(metrics, axis_name="batch")并行计算损失
         return metrics
 
     # Create parallel version of the train and eval step
-    p_train_step = jax.pmap(train_step, "batch", donate_argnums=(0,))
-    p_eval_step = jax.pmap(eval_step, "batch")
+    # p_train_step = jax.pmap(train_step, "batch", donate_argnums=(0,))
+    # p_eval_step = jax.pmap(eval_step, "batch")
 
     # Replicate the train state on each device
-    state = state.replicate()
+    # state = state.replicate()
 
     logger.info("***** Running training *****")
     logger.info(f"  Num examples = {len(train_dataset)}")
     logger.info(f"  Num Epochs = {num_epochs}")
-    logger.info(f"  Instantaneous batch size per device = {training_args.per_device_train_batch_size}")
-    logger.info(f"  Total train batch size (w. parallel & distributed) = {train_batch_size}")
+    # logger.info(f"  Instantaneous batch size per device = {training_args.per_device_train_batch_size}")
+    # logger.info(f"  Total train batch size (w. parallel & distributed) = {train_batch_size}")
+    logger.info(f"  Total train batch size (no parallel) = {train_batch_size}") 
     logger.info(f"  Total optimization steps = {total_train_steps}")
 
     train_time = 0
@@ -782,15 +789,19 @@ def main():
         # train
         for step in tqdm(range(steps_per_epoch), desc="Training...", position=1, leave=False):
             batch = next(train_loader)
-            batch = shard(batch)
-            state, train_metric = p_train_step(state, batch)
+            # batch = shard(batch) 并行分配数据
+            # state, train_metric = p_train_step(state, batch) 使用并行训练步骤
+	    
+            dropout_rng, new_dropout_rng = jax.random.split(dropout_rng) # 修改6 —— 对dropout_rng输出进行随机切分
+            state, train_metric = train_step(state, batch, dropout_rng) # 修改7 —— 添加dropout_rng参数
+            dropout_rng = new_dropout_rng # 修改8 —— 更新dropout_rng
             train_metrics.append(train_metric)
 
             cur_step = epoch * (len(train_dataset) // train_batch_size) + step
 
             if cur_step % training_args.logging_steps == 0 and cur_step > 0:
                 # Save metrics
-                train_metric = unreplicate(train_metric)
+                # train_metric = unreplicate(train_metric)
                 train_time += time.time() - train_start
                 if has_tensorboard and jax.process_index() == 0:
                     write_train_metric(summary_writer, train_metrics, train_time, cur_step)
@@ -802,7 +813,6 @@ def main():
 
                 train_metrics = []
 
-
             if cur_step % training_args.eval_steps == 0 and cur_step > 0:
                 # ======================== Evaluating ==============================
                 eval_metrics = []
@@ -811,9 +821,10 @@ def main():
                 for _ in tqdm(range(eval_steps), desc="Evaluating...", position=2, leave=False):
                     # Model forward
                     batch = next(eval_loader)
-                    metrics = pad_shard_unpad(p_eval_step, static_return=True)(
-                        state.params, batch, min_device_batch=per_device_eval_batch_size
-                    )
+                    # metrics = pad_shard_unpad(p_eval_step, static_return=True)(
+                    #    state.params, batch, min_device_batch=per_device_eval_batch_size
+                    #)
+                    metrics = eval_step(state.params, batch)
                     eval_metrics.append(metrics)
 
                 # normalize eval metrics
@@ -839,8 +850,9 @@ def main():
 
             if cur_step % training_args.save_steps == 0 and cur_step > 0:
                 # save checkpoint after each epoch and push checkpoint to the hub
-                if jax.process_index() == 0:
-                    params = jax.device_get(unreplicate(state.params))
+                # if jax.process_index() == 0:
+                    # params = jax.device_get(unreplicate(state.params))
+                    params = state.params
                     model.save_pretrained(training_args.output_dir, params=params)
                     tokenizer.save_pretrained(training_args.output_dir)
                     if training_args.push_to_hub:
