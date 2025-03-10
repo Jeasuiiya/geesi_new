@@ -19,7 +19,7 @@ optimization library.
 """
 
 import numpy.random as npr
-
+import jax
 import jax.numpy as jnp
 from jax import jit, grad, random
 from jax.example_libraries import optimizers
@@ -27,13 +27,13 @@ from jax.example_libraries import stax
 from jax.example_libraries.stax import (AvgPool, BatchNorm, Conv, Dense,
                                         FanInSum, FanOut, Flatten, GeneralConv,
                                         Identity, MaxPool, Relu, LogSoftmax)
-import tensorflow_datasets as tfds
 import time
 from geesibling.adapters.jax import parallelize, device_config, DeviceType
 from geesibling.adapters.jax import api
 from geesibling.adapters.jax.pipeline.devicecontext import init_global_cluster,get_global_virtual_physical_mesh,get_sliced_virtual_submeshes,shutdown_global_cluster
 import ray.util.collective as col
 from ray.util.collective.collective_group.nccl_collective_group import NCCLGroup
+from geesibling.adapters.jax.parallel_method import ShardParallel,PipeshardParallel
 # ResNet blocks compose other layers
 
 def ConvBlock(kernel_size, filters, strides=(2, 2)):
@@ -120,21 +120,14 @@ if __name__ == "__main__":
   batches = synth_batches()
   
   # Training loop 
-  init_global_cluster("ray")
-  @parallelize(
-        devices=device_config(
-            {
-                "gpu:0": {
-                    "type": DeviceType.gpu,
-                    "memory": 3 * 1024 * 1024* 1024 ,
-                    "free_memory":3 * 1024 * 1024* 1024 ,
-                    "execute_time": 0,
-                },
-            }
-        ),
+  method=PipeshardParallel(
         policy="sgp",
-        method="PipeshardParallel"
-    )
+        num_microbatch=1,
+        layer_method="auto",
+        if_ray=True
+
+   )
+  @parallelize(parallel_method=method)
   def update(i, opt_state, batch):
     params = get_params(opt_state)
     return opt_update(i, api.grad(loss)(params, batch), opt_state)

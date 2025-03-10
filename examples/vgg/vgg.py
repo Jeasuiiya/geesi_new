@@ -93,6 +93,7 @@ num_batches = 5000000000 // batch_size  # Total number of batches in CIFAR-10
 
 init_fun, predict_fun = VGG16(num_classes)
 _, init_params = init_fun(random.PRNGKey(0), (batch_size, 32, 32, 3))
+init_params = jax.tree_map(lambda x: x.astype(jnp.float32), init_params)
 
 # Setup optimizer
 opt_init, opt_update, get_params = optimizers.adam(step_size)

@@ -43,6 +43,7 @@ def update(i, opt_state, batch):
 
 ```sh
 pip install -r requirements-dev.txt
+chmod +x ./scripts/configure
 ./scripts/configure
 cd build && ninja
 ```
