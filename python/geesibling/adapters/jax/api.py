@@ -25,6 +25,7 @@ version: 1 2023.7.4 first commit
 """
 DEVICE_MAP = {"": jax.devices("cpu")[0] if len(jax.devices("gpu")) == 0 else jax.devices("gpu")[0]}
 layer_num=4
+tp_num=2
 from ray.util.collective.collective_group.nccl_collective_group import NCCLGroup
 def register_device():
     for i in jax.devices("cpu"):
@@ -107,7 +108,7 @@ def parallelize(func: Optional[Callable] = None, *, parallel_method=""):
                 def run_executable(worker,instructions):
                     for num,instruction in enumerate(instructions):
                         if instruction.opcode == PipelineInstType.RUN:
-                            worker.run_shard_parallelism.remote(num)
+                            worker.run_shard_parallelism.remote(num,tp_num)
                         elif instruction.opcode == PipelineInstType.SEND:
                             worker.do_send_1.remote(num)
                         elif instruction.opcode == PipelineInstType.RECV:

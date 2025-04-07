@@ -325,8 +325,9 @@ class MeshHostWorker:
                         instruction.groupname,
                         )
 
-    def run_shard_parallelism(self,num):
-
+    def run_shard_parallelism(self,num,tp_num):
+        if  tp_num > len(self.devices) :
+            raise ValueError("tp_num should be less than the number of devices")
         instruction=self.instructions[num]
         stage_id=instruction.stage_id
         micro_batch_id=instruction.micro_batch_id
@@ -339,7 +340,7 @@ class MeshHostWorker:
             else:
                 flat_args.append(self.buffers[micro_batch_id][var])
 
-        result = shard_parallel(self.jax_all_stages[stage_id], flat_args, self.out_tree)
+        result = shard_parallel(self.jax_all_stages[stage_id], flat_args, tp_num, self.out_tree)
 
         for var, val in zip(output_vars,result):
              self.buffers[micro_batch_id][var] = val

@@ -173,14 +173,15 @@ def slice_eqns_by_eqnsnum(closed_jaxpr:ClosedJaxpr, layer_num:int):
     current_computation_eqns = []
     leng = len(closed_jaxpr.jaxpr.eqns)
 #    layre=[int(leng*0.1),int(leng*0.1),int(leng*0.1),leng-int(leng*0.1)-int(leng*0.1)-int(leng*0.1)]
-    layre=[int(leng*0.25),int(leng*0.25),int(leng*0.25),leng-int(leng*0.25)-int(leng*0.25)-int(leng*0.25)]
-    print(layre)
+    layer_size = leng // layer_num
+    layer=[layer_size,]*(layer_num-1) + [leng-layer_size*(layer_num-1)]
+    print(layer)
     flag=0
     num=0
     for eqn in closed_jaxpr.jaxpr.eqns:
         current_computation_eqns.append(eqn)
         flag+=1
-        if flag==layre[num]:
+        if flag==layer[num]:
             sliced_eqns.append(current_computation_eqns)
             current_computation_eqns = []
             flag=0
