@@ -247,7 +247,10 @@ def process_apply_gradient(apply_grad_jaxpr, microbatch_bound, pipeline_stages,
         for var in eqn.invars:
             if not isinstance(var,Literal):
                 if var in gradvar_to_mesh:
-                    eqn_stage_map[i] = gradvar_to_mesh[var]
+                    if i in eqn_stage_map:
+                        eqn_stage_map[i] = min(gradvar_to_mesh[var],eqn_stage_map[i])
+                    else:
+                        eqn_stage_map[i] = gradvar_to_mesh[var]
     for i , eqn in enumerate(apply_grad_jaxpr.eqns):
         if i in eqn_stage_map:
             for var in eqn.invars:
@@ -258,8 +261,11 @@ def process_apply_gradient(apply_grad_jaxpr, microbatch_bound, pipeline_stages,
     for i , eqn in enumerate(apply_grad_jaxpr.eqns):
         for var in eqn.invars:
             if not isinstance(var,Literal):
-                if var in var_stage_map and i not in eqn_stage_map:
-                    eqn_stage_map[i] = var_stage_map[var]
+                if var in var_stage_map:
+                    if i not in eqn_stage_map:
+                        eqn_stage_map[i] = var_stage_map[var]
+                    else:
+                        eqn_stage_map[i] = min(var_stage_map[var],eqn_stage_map[i])
                     for inv in eqn.invars:
                         if not isinstance(inv,Literal):
                             var_stage_map[inv] = eqn_stage_map[i]
@@ -268,8 +274,11 @@ def process_apply_gradient(apply_grad_jaxpr, microbatch_bound, pipeline_stages,
                     
     for i, eqn in enumerate(apply_grad_jaxpr.eqns[::-1]):
         for var in eqn.outvars:
-            if var in var_stage_map and (eqn_num - i - 1) not in eqn_stage_map:
-                eqn_stage_map[eqn_num - i - 1] = var_stage_map[var]
+            if var in var_stage_map:
+                if (eqn_num - i - 1) not in eqn_stage_map:
+                    eqn_stage_map[eqn_num - i - 1] = var_stage_map[var]
+                else:
+                    eqn_stage_map[eqn_num - i - 1] = min(var_stage_map[var],eqn_stage_map[eqn_num - i - 1])
                 for inv in eqn.invars:
                         if not isinstance(inv,Literal):
                             var_stage_map[inv] = eqn_stage_map[eqn_num - i - 1]
